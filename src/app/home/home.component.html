@@ -1,0 +1,41 @@
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<div class="mb-3 text-left">
+<div>Total Expenses : <b>Rs. {{this.sum}}</b></div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="mb-3 text-right">
+<input [(ngModel)]="searchText" autocomplete="off" class="col-md-6 searchinput" type="text" placeholder="Search.."/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+<table class="table table-bordered expensetable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Treatment</th>
+        <th>Expenses (INR)</th>
+		<th>Results</th>
+      </tr>
+    </thead>
+    <tbody>
+	<ng-container *ngIf="( getListData | filter:searchText) as result">
+      <tr *ngFor="let item of result">
+        <td>{{item.Date}}<div><small>({{item.day}})</small></div></td>
+        <td [innerHtml]="getTreatment(item.Treatment)"></td>
+        <td>{{item.Expenses}}</td>
+		<td><span placement="left" ngbTooltip="{{item.Description}}" class="{{item.Result}}"><i class="las la-info-circle info"></i> Info</span></td>
+      </tr>
+     <tr *ngIf="result.length === 0">
+        <td colspan="4" class="text-center">No Data Found</td>		
+      </tr>
+	  </ng-container>
+    </tbody>
+  </table>
+  </div>
+  </div>
+</div>
